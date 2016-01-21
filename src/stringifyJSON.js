@@ -5,20 +5,23 @@
 
 var stringifyJSON = function(obj) {
   
-  var arrayValues = [],
-			objKeys = [],
-			keyValues = [];
+  var arrayValues = [];
+	var objKeys = [];
+	var keyValues = [];
 
   // Check for primitive types
-  if (typeof obj === 'boolean' || typeof obj === 'number' || obj === null)
+  if (typeof obj === 'boolean' || typeof obj === 'number' || obj === null) {
   	return '' + obj;
-  else if (typeof obj === 'string')
+  }
+  else if (typeof obj === 'string') {
   	return '"' + obj + '"';
+  }
 
   // Check for Array
   else if (Array.isArray(obj)) {
-  	if (obj.length === 0)
+  	if (obj.length === 0) {
   		return '[]';
+  	}
   	else {
   		obj.forEach(function(item) {
   			arrayValues.push(stringifyJSON(item));
@@ -32,12 +35,15 @@ var stringifyJSON = function(obj) {
   	objKeys.forEach(function(key) {
   		var stringKey = '"' + key + '":';
   		var keyVal = obj[key];
-  		if (typeof keyVal === undefined || keyVal instanceof Function)
+  		if (typeof keyVal === undefined || keyVal instanceof Function) {
   			keyValues.push('');
-  		else if (typeof keyVal === 'string')
+  		}
+  		else if (typeof keyVal === 'string') {
   			keyValues.push(stringKey + '"' + keyVal + '"');
-  		else if (typeof keyVal === 'boolean' || typeof keyVal === 'number' || keyVal === null)
+  		}
+  		else if (typeof keyVal === 'boolean' || typeof keyVal === 'number' || keyVal === null) {
   			keyValues.push(stringKey + keyVal);
+  		}
   		// Recursive case: check for nested objects
   		else if (keyVal instanceof Object) {
   			keyValues.push(stringKey + stringifyJSON(keyVal));
